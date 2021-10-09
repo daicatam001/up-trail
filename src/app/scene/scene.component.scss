@@ -1,0 +1,15 @@
+:host{
+  display: block;
+  height: 100%;
+  position: relative;
+}
+
+.scene-container{
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background-image: url("/assets/images/scene-1.jpg");
+  background-size: cover;
+  width: calc(100vh * 5057 / 791);
+}
