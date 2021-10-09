@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 
 @Component({
   selector: 'app-scene',
@@ -7,6 +7,10 @@ import {Component, OnInit} from '@angular/core';
 })
 export class SceneComponent implements OnInit {
 
+  @ViewChild('sceneContainer') sceneContainer!: ElementRef
+
+  step = 500
+
   vm = {
     id: 1,
     image: 'scene-1.jpg'
@@ -14,19 +18,24 @@ export class SceneComponent implements OnInit {
 
   pX = 0
 
-  get left() {
-    if (this.pX > 0) {
-      return `calc(50% + ${this.pX}p)`
-    } else if (this.pX < 0) {
-      return `calc(50%- ${Math.abs(this.pX)}p)`
-    }
-    return '50%'
-  }
 
   constructor() {
   }
 
   ngOnInit(): void {
+  }
+
+  moveLeft() {
+    this.pX += this.step
+  }
+
+  moveRight() {
+    this.pX -= this.step
+  }
+
+  get left() {
+    const pos = window.innerWidth / 2 - window.innerHeight / 2 * 5057 / 791
+    return `${pos + this.pX}px`
   }
 
 

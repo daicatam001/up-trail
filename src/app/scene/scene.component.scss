@@ -1,17 +1,31 @@
-:host{
+:host {
   display: block;
   height: 100%;
   position: relative;
   overflow: hidden;
 }
 
-.scene-container{
+.scene-container {
   position: absolute;
   top: 0;
-  left: 0;
   height: 100%;
-  background-image: url("/assets/images/scene-1.jpg");
   background-size: cover;
-  transform: translateX(-50%);
+  //transform: translateX(-50%);
+  transition: left 0.35s;
   width: calc(100vh * 5057 / 791);
 }
+
+.btn-navigate {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+
+  &.to-left{
+    left: 10px;
+  }
+
+  &.to-right{
+    right: 10px;
+  }
+}
+

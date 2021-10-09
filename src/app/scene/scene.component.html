@@ -1,4 +1,6 @@
-<div class="scene-container"
-     [ngStyle]="{backgroundImage:'url(/assets/images/'+ vm.image +')', left}">
+<div class="scene-container" #sceneContainer
+     [ngStyle]="{backgroundImage:'url(/assets/images/'+ vm.image +')',left}">
 </div>
 
+<button class="to-left btn-navigate" (click)="moveLeft()">To left</button>
+<button class="to-right btn-navigate" (click)="moveRight()">To Right</button>
