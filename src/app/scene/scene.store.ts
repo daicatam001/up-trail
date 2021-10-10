@@ -21,7 +21,7 @@ export interface Scene {
 
 export interface SceneState {
   loading: boolean
-  viewStep: number,
+  // viewStep: number,
   viewPosition: number
   currentSceneId: number
   scenes: Scene[]
@@ -65,10 +65,10 @@ export class SceneStore extends ComponentStore<SceneState> {
   }))
 
   readonly viewMoreLeft = this.updater((state) => {
-    if (state.viewPosition + state.viewStep < 0) {
+    if (state.viewPosition + window.innerWidth / 3 < 0) {
       return {
         ...state,
-        viewPosition: state.viewPosition + state.viewStep
+        viewPosition: state.viewPosition + window.innerWidth / 3
       }
     } else {
       return {
@@ -79,10 +79,10 @@ export class SceneStore extends ComponentStore<SceneState> {
   })
 
   readonly viewMoreRight = this.updater((state, sceneWidth: number) => {
-    if (Math.abs(state.viewPosition - state.viewStep) + window.innerWidth < sceneWidth) {
+    if (Math.abs(state.viewPosition - window.innerWidth / 3) + window.innerWidth < sceneWidth) {
       return {
         ...state,
-        viewPosition: state.viewPosition - state.viewStep
+        viewPosition: state.viewPosition - window.innerWidth / 3
       }
     } else {
       return {
@@ -104,7 +104,7 @@ export class SceneStore extends ComponentStore<SceneState> {
   constructor() {
     super({
       loading: false,
-      viewStep: window.innerWidth / 3,
+      // viewStep: window.innerWidth / 3,
       viewPosition: 0,
       currentSceneId:1,
       scenes: [
