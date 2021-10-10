@@ -39,7 +39,7 @@ I also spent around one hour for brainstorming before and in between coding. Ove
 
 ![files][files]
 
-I spent a lot of time on `scene.component.ts` because the way I did was I placed all the logic that I wasn't sure in `scene.component.ts`
+I spent a lot of time on `scene.component.ts` because the way I did was I placed all the logic that I  wasn't sure in `scene.component.ts`
 before moving all of this to `scene.store.ts` when it worked as I expected
 
 ## Local developement
