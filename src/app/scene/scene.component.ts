@@ -12,10 +12,11 @@ export class SceneComponent implements OnInit {
   step = window.innerWidth / 3
 
   vm = {
-    id: 1,
-    image: 'scene-1.jpg',
+    id: 10,
+    image: 'scene-10.jpg',
     hitZones: [
-      {x: '21%', y: '40%', goTo: 2}
+      {x: '30%', y: '45%', goTo: 8},
+      {x: '50%', y: '45%', goTo: 9},
     ]
   }
 
