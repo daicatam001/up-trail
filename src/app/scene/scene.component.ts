@@ -44,7 +44,15 @@ export class SceneComponent implements OnInit {
     }
   }
 
-
+  moveTo(id: number) {
+    this.vm = {
+      id: 1,
+      image: 'scene-2.jpg',
+      hitZones: [
+        {x: '21%', y: '40%', goTo: 2}
+      ]
+    }
+  }
 
   get leftStyle() {
     return `${this.positionX}px`

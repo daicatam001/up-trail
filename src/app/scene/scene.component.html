@@ -1,6 +1,8 @@
 <div class="scene-container" #sceneContainer
      [ngStyle]="{backgroundImage:'url(/assets/images/'+ vm.image +')',left:leftStyle}">
-  <button *ngFor="let zone of vm.hitZones" class="btn-goto" [ngStyle]="{top:zone.y,left:zone.x}">Hit zone</button>
+  <button *ngFor="let zone of vm.hitZones" class="btn-goto" [ngStyle]="{top:zone.y,left:zone.x}"
+          (click)="moveTo(vm.id)">Hit zone
+  </button>
 </div>
 
 <button class="to-left btn-navigate" (click)="viewLeft()">To left</button>
