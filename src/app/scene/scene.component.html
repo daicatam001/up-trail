@@ -2,7 +2,9 @@
   <div class="scene-container"
        [ngClass]="{loading:vm.loading}"
        [ngStyle]="{backgroundImage:'url('+vm.scene!.imageData+')',left:vm.viewPosition + 'px',width:vm.scene.sceneWidth + 'px'}">
-    <div class="filter" *ngIf="vm.loading"></div>
+    <div class="filter" *ngIf="vm.loading">
+      <div class="loader"></div>
+    </div>
     <div class="container" *ngIf="!vm.loading">
       <button *ngFor="let zone of vm.scene.hitZones" class="btn-goto" [ngStyle]="{top:zone.y,left:zone.x}"
               (click)="moveTo(zone.goTo)">
