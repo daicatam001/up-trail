@@ -1,7 +1,7 @@
-import {AfterViewInit, ChangeDetectionStrategy, Component, HostListener, OnInit} from '@angular/core';
+import {AfterViewInit, ChangeDetectionStrategy, Component, HostListener, OnDestroy, OnInit} from '@angular/core';
 import {Scene, SceneState, SceneStore} from "./scene.store";
-import {fromEvent, Observable, of} from "rxjs";
-import {delay, exhaustMap, withLatestFrom} from "rxjs/operators";
+import {fromEvent, Observable, of, Subject} from "rxjs";
+import {delay, exhaustMap, takeUntil, withLatestFrom} from "rxjs/operators";
 
 
 enum KEY_CODE {
@@ -16,10 +16,11 @@ enum KEY_CODE {
   providers: [SceneStore],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SceneComponent implements AfterViewInit {
+export class SceneComponent implements AfterViewInit, OnDestroy {
 
   vm$: Observable<SceneState & { scene: Scene }> = this.sceneStore.vm$
-  timer: any
+  timer: any;
+  destroy$ = new Subject()
 
 
   constructor(private sceneStore: SceneStore) {
@@ -27,8 +28,10 @@ export class SceneComponent implements AfterViewInit {
 
 
   ngAfterViewInit(): void {
-    fromEvent(document, 'keydown').pipe(exhaustMap(event => of(event).pipe(delay(300))),
-      withLatestFrom(this.vm$)
+    fromEvent(document, 'keydown').pipe(
+      exhaustMap(event => of(event).pipe(delay(300))),
+      withLatestFrom(this.vm$),
+      takeUntil(this.destroy$)
     )
       .subscribe(([event, vm]) => {
         if ((event as KeyboardEvent).keyCode == KEY_CODE.ARROW_LEFT) {
@@ -67,6 +70,10 @@ export class SceneComponent implements AfterViewInit {
 
   moveTo(id: number) {
     this.sceneStore.goTo(id)
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next()
   }
 
 }
