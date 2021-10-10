@@ -6,7 +6,7 @@ Project was created to build simple game with experience like google street view
 
 ## Demo
 
-Project was deploy to Firebase
+Project was deployed to Firebase
 
 Check out live demo here -> https://up-trail.web.app/
 
