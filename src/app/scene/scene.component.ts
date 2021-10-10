@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 
 @Component({
   selector: 'app-scene',
@@ -9,11 +9,14 @@ export class SceneComponent implements OnInit {
 
   @ViewChild('sceneContainer') sceneContainer!: ElementRef
 
-  step = window.innerWidth/3
+  step = window.innerWidth / 3
 
   vm = {
     id: 1,
-    image: 'scene-1.jpg'
+    image: 'scene-1.jpg',
+    hitZones: [
+      {x: '21%', y: '40%', goTo: 2}
+    ]
   }
 
   centerX = window.innerWidth / 2 - window.innerHeight / 2 * 5057 / 791
