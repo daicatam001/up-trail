@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-scene',
@@ -9,15 +9,15 @@ export class SceneComponent implements OnInit {
 
   @ViewChild('sceneContainer') sceneContainer!: ElementRef
 
-  step = 500
+  step = window.innerWidth/3
 
   vm = {
     id: 1,
     image: 'scene-1.jpg'
   }
 
-  pX = 0
-
+  centerX = window.innerWidth / 2 - window.innerHeight / 2 * 5057 / 791
+  positionX = this.centerX
 
   constructor() {
   }
@@ -26,17 +26,24 @@ export class SceneComponent implements OnInit {
   }
 
   moveLeft() {
-    this.pX += this.step
+    if (this.positionX + this.step < 0) {
+      this.positionX += this.step
+    } else {
+      this.positionX = 0
+    }
   }
 
   moveRight() {
-    this.pX -= this.step
+    if (Math.abs(this.positionX - this.step) + window.innerWidth < this.sceneContainer.nativeElement.scrollWidth) {
+      this.positionX -= this.step
+    } else {
+      this.positionX = window.innerWidth - this.sceneContainer.nativeElement.scrollWidth
+    }
   }
 
-  get left() {
-    const pos = window.innerWidth / 2 - window.innerHeight / 2 * 5057 / 791
-    return `${pos + this.pX}px`
-  }
 
+  get leftStyle() {
+    return `${this.positionX}px`
+  }
 
 }
