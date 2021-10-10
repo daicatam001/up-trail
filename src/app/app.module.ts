@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { SceneComponent } from './scene/scene.component';
+import {CommonModule} from "@angular/common";
 
 @NgModule({
   declarations: [
@@ -10,7 +11,8 @@ import { SceneComponent } from './scene/scene.component';
     SceneComponent,
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    CommonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

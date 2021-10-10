@@ -1,4 +1,5 @@
 import {ComponentStore} from "@ngrx/component-store";
+import {Injectable} from "@angular/core";
 
 export interface HitZone {
   x: string
@@ -17,7 +18,24 @@ export interface SceneState {
   scenes: Scene[]
 }
 
+
+@Injectable()
 export class SceneStore extends ComponentStore<SceneState> {
+
+  readonly $currentSceneId = this.select(state => state.currentSceneId)
+  readonly $scenes = this.select(state => state.scenes)
+
+  readonly $currentScene = this.select(
+    this.$currentSceneId,
+    this.$scenes,
+    (id, scenes) => scenes.find(scene => scene.id === id)
+  )
+
+  readonly goTo = this.updater((state, id: number) => ({
+    ...state,
+    currentSceneId: id
+  }))
+
   constructor() {
     super({
       currentSceneId: 1,

@@ -1,29 +1,28 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectionStrategy, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {SceneStore} from "./scene.store";
 
 @Component({
   selector: 'app-scene',
   templateUrl: './scene.component.html',
-  styleUrls: ['./scene.component.scss']
+  styleUrls: ['./scene.component.scss'],
+  providers: [SceneStore],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SceneComponent implements OnInit {
 
   @ViewChild('sceneContainer') sceneContainer!: ElementRef
 
-  step = window.innerWidth / 3
+  vm$ = this.sceneStore.$currentScene
 
-  vm = {
-    id: 10,
-    image: 'scene-10.jpg',
-    hitZones: [
-      {x: '30%', y: '45%', goTo: 8},
-      {x: '50%', y: '45%', goTo: 9},
-    ]
-  }
+  step = window.innerWidth / 3
 
   centerX = window.innerWidth / 2 - window.innerHeight / 2 * 5057 / 791
   positionX = this.centerX
 
-  constructor() {
+
+
+
+  constructor(private sceneStore: SceneStore) {
   }
 
   ngOnInit(): void {
@@ -46,13 +45,7 @@ export class SceneComponent implements OnInit {
   }
 
   moveTo(id: number) {
-    this.vm = {
-      id: 1,
-      image: 'scene-2.jpg',
-      hitZones: [
-        {x: '21%', y: '40%', goTo: 2}
-      ]
-    }
+    this.sceneStore.goTo(id)
   }
 
   get leftStyle() {
