@@ -106,7 +106,7 @@ export class SceneStore extends ComponentStore<SceneState> {
       loading: false,
       viewStep: window.innerWidth / 3,
       viewPosition: 0,
-      currentSceneId: 1,
+      currentSceneId:1,
       scenes: [
         {
           id: 1,
@@ -145,7 +145,7 @@ export class SceneStore extends ComponentStore<SceneState> {
           image: 'scene-5.jpg',
           ratioAspect: 10986 / 1456,
           hitZones: [
-            {x: '19%', y: '40%', goTo: 6} // 17
+            {x: '17%', y: '40%', goTo: 6} // 17
           ]
         },
         {
