@@ -1,5 +1,7 @@
 import {ChangeDetectionStrategy, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {SceneStore} from "./scene.store";
+import {Scene, SceneStore} from "./scene.store";
+import {map} from "rxjs/operators";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-scene',
@@ -12,15 +14,8 @@ export class SceneComponent implements OnInit {
 
   @ViewChild('sceneContainer') sceneContainer!: ElementRef
 
-  vm$ = this.sceneStore.currentScene$
-
-  step = window.innerWidth / 3
-
-  centerX = window.innerWidth / 2 - window.innerHeight / 2 * 5057 / 791
-  positionX = this.centerX
-
-
-
+  vm$: Observable<Scene> = this.sceneStore.currentScene$
+  vp$ = this.sceneStore.viewPosition$.pipe(map(vp => vp + 'px'))
 
   constructor(private sceneStore: SceneStore) {
   }
@@ -28,28 +23,16 @@ export class SceneComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  viewLeft() {
-    if (this.positionX + this.step < 0) {
-      this.positionX += this.step
-    } else {
-      this.positionX = 0
-    }
+  viewMoreLeft() {
+    this.sceneStore.viewMoreLeft()
   }
 
-  viewRight() {
-    if (Math.abs(this.positionX - this.step) + window.innerWidth < this.sceneContainer.nativeElement.scrollWidth) {
-      this.positionX -= this.step
-    } else {
-      this.positionX = window.innerWidth - this.sceneContainer.nativeElement.scrollWidth
-    }
+  viewMoreRight(sceneWidth: number) {
+    this.sceneStore.viewMoreRight(sceneWidth)
   }
 
   moveTo(id: number) {
     this.sceneStore.goTo(id)
-  }
-
-  get leftStyle() {
-    return `${this.positionX}px`
   }
 
 }

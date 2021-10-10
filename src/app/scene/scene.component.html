@@ -1,12 +1,12 @@
 <ng-container *ngIf="(vm$ | async ) as vm">
   <div class="scene-container" #sceneContainer
-       [ngStyle]="{backgroundImage:'url(/assets/images/'+ vm.image +')',left:leftStyle,width:vm.sceneWidth + 'px'}">
+       [ngStyle]="{backgroundImage:'url(/assets/images/'+ vm.image +')',left:(vp$ | async),width:vm.sceneWidth + 'px'}">
     <button *ngFor="let zone of vm.hitZones" class="btn-goto" [ngStyle]="{top:zone.y,left:zone.x}"
             (click)="moveTo(zone.goTo)">Hit zone
     </button>
   </div>
 
-  <button class="to-left btn-navigate" (click)="viewLeft()">To left</button>
-  <button class="to-right btn-navigate" (click)="viewRight()">To Right</button>
+  <button class="to-left btn-navigate" (click)="viewMoreLeft()">To left</button>
+  <button class="to-right btn-navigate" (click)="viewMoreRight(vm.sceneWidth!)">To Right</button>
 
 </ng-container>

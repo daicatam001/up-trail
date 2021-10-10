@@ -1,6 +1,7 @@
 import {ComponentStore} from "@ngrx/component-store";
 import {Injectable} from "@angular/core";
-import {map} from "rxjs/operators";
+import {map, tap} from "rxjs/operators";
+import {Observable} from "rxjs";
 
 export interface HitZone {
   x: string,
@@ -17,6 +18,8 @@ export interface Scene {
 }
 
 export interface SceneState {
+  viewStep: number,
+  viewPosition: number
   currentSceneId: number
   scenes: Scene[]
 }
@@ -28,11 +31,11 @@ export class SceneStore extends ComponentStore<SceneState> {
 
   readonly currentSceneId$ = this.select(state => state.currentSceneId)
   readonly scenes$ = this.select(state => state.scenes)
-
-  readonly currentScene$ = this.select(
+  readonly viewPosition$ = this.select(state => state.viewPosition)
+  readonly currentScene$: Observable<Scene> = this.select(
     this.currentSceneId$,
     this.scenes$,
-    (id, scenes) => scenes.find(scene => scene.id === id)
+    (id, scenes) => scenes.find(scene => scene.id === id)!
   ).pipe(map((scene) => ({
     ...scene,
     sceneWidth: window.innerHeight * scene!.ratioAspect
@@ -43,8 +46,47 @@ export class SceneStore extends ComponentStore<SceneState> {
     currentSceneId: id
   }))
 
+  readonly viewMoreLeft = this.updater((state) => {
+    if (state.viewPosition + state.viewStep < 0) {
+      return {
+        ...state,
+        viewPosition: state.viewPosition + state.viewStep
+      }
+    } else {
+      return {
+        ...state,
+        viewPosition: 0
+      }
+    }
+  })
+
+  readonly viewMoreRight = this.updater((state, sceneWidth: number) => {
+    if (Math.abs(state.viewPosition - state.viewStep) + window.innerWidth < sceneWidth) {
+      return {
+        ...state,
+        viewPosition: state.viewPosition - state.viewStep
+      }
+    } else {
+      return {
+        ...state,
+        viewPosition: window.innerWidth - sceneWidth
+      }
+    }
+  })
+
+  readonly resetViewPosition = this.effect<Scene>(currentScene$ =>
+    currentScene$.pipe(
+      tap(currentScene => {
+        this.patchState({
+          viewPosition: window.innerWidth / 2 - window.innerHeight / 2 * currentScene.ratioAspect
+        })
+      })
+    ))
+
   constructor() {
     super({
+      viewStep: window.innerWidth / 3,
+      viewPosition: 0,
       currentSceneId: 1,
       scenes: [
         {
@@ -118,7 +160,7 @@ export class SceneStore extends ComponentStore<SceneState> {
         {
           id: 9,
           image: 'scene-9.jpg',
-          ratioAspect: 100013 / 1598,
+          ratioAspect: 10013 / 1598,
           hitZones: [
             {x: '7%', y: '60%', goTo: 10},
             {x: '42%', y: '62%', goTo: 8},
@@ -135,5 +177,6 @@ export class SceneStore extends ComponentStore<SceneState> {
         }
       ],
     })
+    this.resetViewPosition(this.currentScene$)
   }
 }
