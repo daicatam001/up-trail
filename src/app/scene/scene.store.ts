@@ -25,12 +25,13 @@ export interface SceneState {
 @Injectable()
 export class SceneStore extends ComponentStore<SceneState> {
 
-  readonly $currentSceneId = this.select(state => state.currentSceneId)
-  readonly $scenes = this.select(state => state.scenes)
 
-  readonly $currentScene = this.select(
-    this.$currentSceneId,
-    this.$scenes,
+  readonly currentSceneId$ = this.select(state => state.currentSceneId)
+  readonly scenes$ = this.select(state => state.scenes)
+
+  readonly currentScene$ = this.select(
+    this.currentSceneId$,
+    this.scenes$,
     (id, scenes) => scenes.find(scene => scene.id === id)
   ).pipe(map((scene) => ({
     ...scene,

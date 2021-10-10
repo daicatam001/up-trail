@@ -12,7 +12,7 @@ export class SceneComponent implements OnInit {
 
   @ViewChild('sceneContainer') sceneContainer!: ElementRef
 
-  vm$ = this.sceneStore.$currentScene
+  vm$ = this.sceneStore.currentScene$
 
   step = window.innerWidth / 3
 
