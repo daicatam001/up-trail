@@ -12,12 +12,26 @@
   </div>
 
   <ng-container *ngIf="!vm.loading">
-    <button class="to-left btn-navigate" (click)="viewMoreLeft()">
+    <button class="to-left btn-navigate"
+            (click)="viewMoreLeft()"
+            (mousedown)="onHoldViewMoreLeft()"
+            (mouseup)="onUnHold()"
+            (mouseleave)="onUnHold()">
       <i class="fa fa-chevron-circle-left" aria-hidden="true"></i>
     </button>
-    <button class="to-right btn-navigate" (click)="viewMoreRight(vm.scene.sceneWidth!)">
+    <!--    <button class="to-left btn-navigate" (click)="viewMoreLeft()">-->
+    <!--      <i class="fa fa-chevron-circle-left" aria-hidden="true"></i>-->
+    <!--    </button>-->
+    <button class="to-right btn-navigate"
+            (click)="viewMoreRight(vm.scene.sceneWidth!)"
+            (mousedown)="onHoldViewMoreRight(vm.scene.sceneWidth!)"
+            (mouseup)="onUnHold()"
+            (mouseleave)="onUnHold()">
       <i class="fa fa-chevron-circle-right" aria-hidden="true"></i>
     </button>
+    <!--    <button class="to-right btn-navigate" (click)="viewMoreRight(vm.scene.sceneWidth!)">-->
+    <!--      <i class="fa fa-chevron-circle-right" aria-hidden="true"></i>-->
+    <!--    </button>-->
   </ng-container>
 
 </ng-container>
