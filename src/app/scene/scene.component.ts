@@ -28,7 +28,7 @@ export class SceneComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  moveLeft() {
+  viewLeft() {
     if (this.positionX + this.step < 0) {
       this.positionX += this.step
     } else {
@@ -36,13 +36,14 @@ export class SceneComponent implements OnInit {
     }
   }
 
-  moveRight() {
+  viewRight() {
     if (Math.abs(this.positionX - this.step) + window.innerWidth < this.sceneContainer.nativeElement.scrollWidth) {
       this.positionX -= this.step
     } else {
       this.positionX = window.innerWidth - this.sceneContainer.nativeElement.scrollWidth
     }
   }
+
 
 
   get leftStyle() {

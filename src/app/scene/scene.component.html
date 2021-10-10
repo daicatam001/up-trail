@@ -3,5 +3,5 @@
   <button *ngFor="let zone of vm.hitZones" class="btn-goto" [ngStyle]="{top:zone.y,left:zone.x}">Hit zone</button>
 </div>
 
-<button class="to-left btn-navigate" (click)="moveLeft()">To left</button>
-<button class="to-right btn-navigate" (click)="moveRight()">To Right</button>
+<button class="to-left btn-navigate" (click)="viewLeft()">To left</button>
+<button class="to-right btn-navigate" (click)="viewRight()">To Right</button>
