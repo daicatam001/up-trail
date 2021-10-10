@@ -137,7 +137,7 @@ export class SceneStore extends ComponentStore<SceneState> {
           image: 'scene-4.jpg',
           ratioAspect: 10404 / 1538,
           hitZones: [
-            {x: '25%', y: '40%', goTo: 5}
+            {x: '24%', y: '40%', goTo: 5}
           ]
         },
         {
@@ -145,7 +145,7 @@ export class SceneStore extends ComponentStore<SceneState> {
           image: 'scene-5.jpg',
           ratioAspect: 10986 / 1456,
           hitZones: [
-            {x: '19%', y: '40%', goTo: 6}
+            {x: '19%', y: '40%', goTo: 6} // 17
           ]
         },
         {
@@ -171,9 +171,9 @@ export class SceneStore extends ComponentStore<SceneState> {
           image: 'scene-8.jpg',
           ratioAspect: 10434 / 1533,
           hitZones: [
-            {x: '28%', y: '70%', goTo: 6},
-            {x: '67%', y: '50%', goTo: 9},
-            {x: '85.5%', y: '50%', goTo: 10},
+            {x: '26.5%', y: '70%', goTo: 6},
+            {x: '63%', y: '50%', goTo: 9},
+            {x: '80.5%', y: '50%', goTo: 10},
           ]
         },
         {
@@ -181,7 +181,7 @@ export class SceneStore extends ComponentStore<SceneState> {
           image: 'scene-9.jpg',
           ratioAspect: 10013 / 1598,
           hitZones: [
-            {x: '7%', y: '60%', goTo: 10},
+            {x: '7.5%', y: '60%', goTo: 10},
             {x: '42%', y: '62%', goTo: 8},
           ]
         },
@@ -190,8 +190,8 @@ export class SceneStore extends ComponentStore<SceneState> {
           image: 'scene-10.jpg',
           ratioAspect: 10249 / 1561,
           hitZones: [
-            {x: '30%', y: '45%', goTo: 8},
-            {x: '50%', y: '45%', goTo: 9},
+            {x: '27%', y: '55%', goTo: 8},
+            {x: '47%', y: '55%', goTo: 9},
           ]
         }
       ],
