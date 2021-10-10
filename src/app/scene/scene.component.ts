@@ -1,6 +1,5 @@
-import {ChangeDetectionStrategy, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {Scene, SceneStore} from "./scene.store";
-import {map} from "rxjs/operators";
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {Scene, SceneState, SceneStore} from "./scene.store";
 import {Observable} from "rxjs";
 
 @Component({
@@ -12,10 +11,7 @@ import {Observable} from "rxjs";
 })
 export class SceneComponent implements OnInit {
 
-  @ViewChild('sceneContainer') sceneContainer!: ElementRef
-
-  vm$: Observable<Scene> = this.sceneStore.currentScene$
-  vp$ = this.sceneStore.viewPosition$.pipe(map(vp => vp + 'px'))
+  vm$: Observable<SceneState & { scene: Scene }> = this.sceneStore.vm$
 
   constructor(private sceneStore: SceneStore) {
   }

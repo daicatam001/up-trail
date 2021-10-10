@@ -1,7 +1,8 @@
 import {ComponentStore} from "@ngrx/component-store";
 import {Injectable} from "@angular/core";
-import {map, tap} from "rxjs/operators";
+import {map, switchMap, tap} from "rxjs/operators";
 import {Observable} from "rxjs";
+import {fromPromise} from "rxjs/internal-compatibility";
 
 export interface HitZone {
   x: string,
@@ -13,11 +14,13 @@ export interface Scene {
   id: number,
   image: string,
   ratioAspect: number,
+  imageData?: string,
   sceneWidth?: number
   hitZones: HitZone[]
 }
 
 export interface SceneState {
+  loading: boolean
   viewStep: number,
   viewPosition: number
   currentSceneId: number
@@ -28,18 +31,33 @@ export interface SceneState {
 @Injectable()
 export class SceneStore extends ComponentStore<SceneState> {
 
-
   readonly currentSceneId$ = this.select(state => state.currentSceneId)
   readonly scenes$ = this.select(state => state.scenes)
-  readonly viewPosition$ = this.select(state => state.viewPosition)
+
   readonly currentScene$: Observable<Scene> = this.select(
     this.currentSceneId$,
     this.scenes$,
     (id, scenes) => scenes.find(scene => scene.id === id)!
-  ).pipe(map((scene) => ({
-    ...scene,
-    sceneWidth: window.innerHeight * scene!.ratioAspect
-  })))
+  ).pipe(
+    tap(() => this.patchState({loading: true})),
+    switchMap(scene => fromPromise(this.imageToBase64('/assets/images/' + scene.image)).pipe(
+      tap(() => {
+        setTimeout(() => {
+          this.patchState({loading: false})
+        }, 700)
+      }),
+      map((data) => ({
+        ...scene,
+        sceneWidth: window.innerHeight * scene!.ratioAspect,
+        imageData: data! as string
+      })))),
+  )
+
+  readonly vm$ = this.select(this.state$, this.currentScene$, (state, scene) => ({
+    ...state,
+    scene
+  }))
+
 
   readonly goTo = this.updater((state, id: number) => ({
     ...state,
@@ -85,6 +103,7 @@ export class SceneStore extends ComponentStore<SceneState> {
 
   constructor() {
     super({
+      loading: false,
       viewStep: window.innerWidth / 3,
       viewPosition: 0,
       currentSceneId: 1,
@@ -179,4 +198,16 @@ export class SceneStore extends ComponentStore<SceneState> {
     })
     this.resetViewPosition(this.currentScene$)
   }
+
+  private imageToBase64(url: string): Promise<string> {
+    return fetch(url)
+      .then(response => response.blob())
+      .then(blob => new Promise((resolve, reject) => {
+        const reader = new FileReader()
+        reader.onloadend = () => resolve(reader.result as string)
+        reader.onerror = reject
+        reader.readAsDataURL(blob)
+      }))
+  }
+
 }

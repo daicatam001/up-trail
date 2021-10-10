@@ -1,12 +1,18 @@
-<ng-container *ngIf="(vm$ | async ) as vm">
-  <div class="scene-container" #sceneContainer
-       [ngStyle]="{backgroundImage:'url(/assets/images/'+ vm.image +')',left:(vp$ | async),width:vm.sceneWidth + 'px'}">
-    <button *ngFor="let zone of vm.hitZones" class="btn-goto" [ngStyle]="{top:zone.y,left:zone.x}"
-            (click)="moveTo(zone.goTo)">Hit zone
-    </button>
+<ng-container *ngIf=" (vm$ | async ) as vm">
+  <div class="scene-container"
+       [ngClass]="{loading:vm.loading}"
+       [ngStyle]="{backgroundImage:'url('+vm.scene!.imageData+')',left:vm.viewPosition + 'px',width:vm.scene.sceneWidth + 'px'}">
+    <div class="filter" *ngIf="vm.loading"></div>
+    <div class="container" *ngIf="!vm.loading">
+      <button *ngFor="let zone of vm.scene.hitZones" class="btn-goto" [ngStyle]="{top:zone.y,left:zone.x}"
+              (click)="moveTo(zone.goTo)">Hit zone
+      </button>
+    </div>
   </div>
 
-  <button class="to-left btn-navigate" (click)="viewMoreLeft()">To left</button>
-  <button class="to-right btn-navigate" (click)="viewMoreRight(vm.sceneWidth!)">To Right</button>
+ <ng-container *ngIf="!vm.loading">
+   <button class="to-left btn-navigate" (click)="viewMoreLeft()">To left</button>
+   <button class="to-right btn-navigate" (click)="viewMoreRight(vm.scene.sceneWidth!)">To Right</button>
+ </ng-container>
 
 </ng-container>

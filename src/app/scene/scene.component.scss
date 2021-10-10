@@ -10,10 +10,19 @@
   top: 0;
   height: 100%;
   background-size: cover;
-  transition: left 0.35s;
+
+  &:not(.loading) {
+    transition: left 0.5s ease-out;
+  }
 }
 
-.btn-goto{
+.filter {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(255, 255, 255, 0.95);
+}
+
+.btn-goto {
   position: absolute;
   padding: 20px;
   background-color: white;
@@ -24,11 +33,11 @@
   top: 50%;
   transform: translateY(-50%);
 
-  &.to-left{
+  &.to-left {
     left: 10px;
   }
 
-  &.to-right{
+  &.to-right {
     right: 10px;
   }
 }
