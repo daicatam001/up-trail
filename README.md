@@ -1,27 +1,55 @@
-# UpTrail
+# Up trail game with Angular + Component Store
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.9.
+Project was created to build simple game with experience like google street view but much simpler
 
-## Development server
+![Screen Shot][screen-shot]
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Demo
 
-## Code scaffolding
+Project was deploy to Firebase
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Check out live demo here -> https://up-trail.web.app/
 
-## Build
+## Tech stack
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+- [Angular 12][angular]
+- [Component Store][component-store]
 
-## Running unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-## Running end-to-end tests
+## Chanllenges
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+ - All the images are super heavy, if it is loaded directly, users will see it in fragment not all at one and it's really bad user experience. 
+So the trick is I loaded it underline and convert them to base 64 string and use it as image's source.
+User always see the full picture showing on screen
+ - The 2nd challenge is about controlling view point, the images must be fit the screen and the view point is always in the images boundary.
+ 
 
-## Further help
+## Improvement
+ - Hit zones: Only show up when hovering the paths is much better
+ - Loading image on changing scene: It's not really friendly for users
+ - Animation on control view point: It's not really smooth
+ - Icon style: it would definitely be better if I spent more time on it
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## Time tracking
+
+![time][time]
+
+I also spent around one hour for brainstorming before and in between coding. Overall, the project is challenging but super fun to work with.  
+
+![files][files]
+
+I spent a lot of time on `scene.component.ts` because the way I did was I placed all the logic that I's not sure in `scene.component.ts`
+before moving all of this to `scene.store.ts` when it worked as I expected
+
+## Local developement
+
+ - Clone project
+ - run `npm install` to install dependencies
+ - run `npm start` to start the project
+
+[screen-shot]:docs/screenshot.png
+[angular]:https://angular.io/
+[component-store]:https://ngrx.io/guide/component-store
+[time]:docs/time-spent.png
+[files]:docs/files.png
