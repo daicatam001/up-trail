@@ -5,14 +5,19 @@
     <div class="filter" *ngIf="vm.loading"></div>
     <div class="container" *ngIf="!vm.loading">
       <button *ngFor="let zone of vm.scene.hitZones" class="btn-goto" [ngStyle]="{top:zone.y,left:zone.x}"
-              (click)="moveTo(zone.goTo)">Hit zone
+              (click)="moveTo(zone.goTo)">
+        <i class="fa  fa-angle-double-up" aria-hidden="true"></i>
       </button>
     </div>
   </div>
 
- <ng-container *ngIf="!vm.loading">
-   <button class="to-left btn-navigate" (click)="viewMoreLeft()">To left</button>
-   <button class="to-right btn-navigate" (click)="viewMoreRight(vm.scene.sceneWidth!)">To Right</button>
- </ng-container>
+  <ng-container *ngIf="!vm.loading">
+    <button class="to-left btn-navigate" (click)="viewMoreLeft()">
+      <i class="fa fa-chevron-circle-left" aria-hidden="true"></i>
+    </button>
+    <button class="to-right btn-navigate" (click)="viewMoreRight(vm.scene.sceneWidth!)">
+      <i class="fa fa-chevron-circle-right" aria-hidden="true"></i>
+    </button>
+  </ng-container>
 
 </ng-container>

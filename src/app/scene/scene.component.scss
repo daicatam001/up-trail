@@ -23,15 +23,38 @@
 }
 
 .btn-goto {
+  cursor: pointer;
   position: absolute;
-  padding: 20px;
-  background-color: white;
+  font-size: 60px;
+  width: 75px;
+  height: 75px;
+  border: 0;
+  outline: 0;
+  background: #ffffffc7;
+  color: #a1a1a1;
+  border-radius: 50%;
 }
 
 .btn-navigate {
+  height: 40px;
+  line-height: 40px;
+  width: 40px;
+  display: flex;
+  align-items: center;
+  background-color: black;
+  color: white;
+  justify-content: center;
+  border-radius: 50%;
   position: absolute;
   top: 50%;
+  border: 0;
+  outline: 0;
+  font-size: 46px;
   transform: translateY(-50%);
+
+  i {
+    cursor: pointer;
+  }
 
   &.to-left {
     left: 10px;
